@@ -1,0 +1,208 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #34495e;
+  --accent-color: #3498db;
+  --success-color: #27ae60;
+  --error-color: #e74c3c;
+  --bg-color: #f4f7f6;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.game-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+  font-size: 2.5rem;
+}
+
+.subtitle {
+  color: var(--accent-color);
+  font-size: 1.2rem;
+  margin-top: 0;
+  font-weight: 500;
+}
+
+.instructions {
+  color: var(--secondary-color);
+  margin-bottom: 2rem;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.retry-button {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.retry-button:hover {
+  background-color: #219150;
+}
+
+.score-summary {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.score-summary h2 {
+  margin-top: 0;
+  color: var(--accent-color);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.matching-grid {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.column h3 {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.5rem;
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card.selected {
+  border-color: var(--accent-color);
+  background-color: #ebf5fb;
+}
+
+.card.matched {
+  background-color: #f0f4f8;
+  border-color: #d1d9e6;
+  opacity: 0.8;
+}
+
+.card.correct {
+  background-color: #d4edda;
+  border-color: var(--success-color);
+  opacity: 1;
+}
+
+.card.incorrect {
+  background-color: #f8d7da;
+  border-color: var(--error-color);
+  opacity: 1;
+}
+
+.definition-card {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: left;
+  padding: 1.25rem;
+}
+
+.game-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+button {
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.submit-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.reset-button {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.reset-button:hover {
+  background-color: #7f8c8d;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .matching-grid {
+    flex-direction: column;
+  }
+  
+  .game-container {
+    padding: 1rem;
+  }
+}
