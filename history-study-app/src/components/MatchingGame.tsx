@@ -12,19 +12,23 @@ const MatchingGame: React.FC = () => {
   const [shuffledDefinitions, setShuffledDefinitions] = useState<VocabularyItem[]>([]);
   const [selectedWordId, setSelectedWordId] = useState<string | null>(null);
   const [selectedDefinitionId, setSelectedDefinitionId] = useState<string | null>(null);
-  const [matches, setMatches] = useState<Match[]>([]);
-  const [submitted, setSubmitted] = useState(false);
-  const [score, setScore] = useState<number | null>(null);
+  
+  // Track incorrect matches to show red briefly or persistently until clicked again
+  const [incorrectMatches, setIncorrectMatches] = useState<Match[]>([]);
+  
+  // Scoring
+  const [attempts, setAttempts] = useState(0);
+  const [matchesFound, setMatchesFound] = useState(0);
 
   // Initialize and shuffle
   const initGame = (items: VocabularyItem[] = vocabulary) => {
     setShuffledWords([...items].sort(() => Math.random() - 0.5));
     setShuffledDefinitions([...items].sort(() => Math.random() - 0.5));
-    setMatches([]);
+    setIncorrectMatches([]);
     setSelectedWordId(null);
     setSelectedDefinitionId(null);
-    setSubmitted(false);
-    setScore(null);
+    setAttempts(0);
+    setMatchesFound(0);
   };
 
   useEffect(() => {
@@ -33,18 +37,16 @@ const MatchingGame: React.FC = () => {
 
   // Handle selection
   const handleWordClick = (id: string) => {
-    if (submitted) return;
-    // If already matched, we can allow re-selection (unmatching)
-    if (matches.some(m => m.wordId === id)) {
-      setMatches(prev => prev.filter(m => m.wordId !== id));
+    // If it was marked incorrect, remove it from incorrectMatches
+    if (incorrectMatches.some(m => m.wordId === id)) {
+      setIncorrectMatches(prev => prev.filter(m => m.wordId !== id));
     }
     setSelectedWordId(id);
   };
 
   const handleDefinitionClick = (id: string) => {
-    if (submitted) return;
-    if (matches.some(m => m.definitionId === id)) {
-      setMatches(prev => prev.filter(m => m.definitionId !== id));
+    if (incorrectMatches.some(m => m.definitionId === id)) {
+      setIncorrectMatches(prev => prev.filter(m => m.definitionId !== id));
     }
     setSelectedDefinitionId(id);
   };
@@ -52,46 +54,40 @@ const MatchingGame: React.FC = () => {
   // Create match when both are selected
   useEffect(() => {
     if (selectedWordId && selectedDefinitionId) {
-      // Remove any existing matches for these IDs
-      setMatches(prev => {
-        const filtered = prev.filter(m => m.wordId !== selectedWordId && m.definitionId !== selectedDefinitionId);
-        return [...filtered, { wordId: selectedWordId, definitionId: selectedDefinitionId }];
-      });
+      setAttempts(prev => prev + 1);
+      
+      if (selectedWordId === selectedDefinitionId) {
+        // Correct match! Remove from screen
+        setShuffledWords(prev => prev.filter(w => w.id !== selectedWordId));
+        setShuffledDefinitions(prev => prev.filter(d => d.id !== selectedDefinitionId));
+        setMatchesFound(prev => prev + 1);
+        
+        // Ensure not in incorrectMatches
+        setIncorrectMatches(prev => prev.filter(m => m.wordId !== selectedWordId && m.definitionId !== selectedDefinitionId));
+      } else {
+        // Incorrect match
+        setIncorrectMatches(prev => {
+          const filtered = prev.filter(m => m.wordId !== selectedWordId && m.definitionId !== selectedDefinitionId);
+          return [...filtered, { wordId: selectedWordId, definitionId: selectedDefinitionId }];
+        });
+      }
       setSelectedWordId(null);
       setSelectedDefinitionId(null);
     }
   }, [selectedWordId, selectedDefinitionId]);
 
-  const handleSubmit = () => {
-    let correctCount = 0;
-    matches.forEach(match => {
-      if (match.wordId === match.definitionId) {
-        correctCount++;
-      }
-    });
-    setScore(correctCount);
-    setSubmitted(true);
-  };
-
-  const handleRetryMissed = () => {
-    // Keep only correct matches
-    const correctMatches = matches.filter(m => m.wordId === m.definitionId);
-    setMatches(correctMatches);
-    
-    // Shuffling again to keep it challenging
-    setShuffledWords(prev => [...prev].sort(() => Math.random() - 0.5));
-    setShuffledDefinitions(prev => [...prev].sort(() => Math.random() - 0.5));
-    
-    setSubmitted(false);
-    setScore(null);
-  };
-
   const handleStartOver = () => {
     initGame();
   };
 
-  const getMatchForWord = (id: string) => matches.find(m => m.wordId === id);
-  const getMatchForDefinition = (id: string) => matches.find(m => m.definitionId === id);
+  const isGameOver = vocabulary.length > 0 && matchesFound === vocabulary.length;
+  
+  const getIncorrectMatchForWord = (id: string) => incorrectMatches.find(m => m.wordId === id);
+  const getIncorrectMatchForDefinition = (id: string) => incorrectMatches.find(m => m.definitionId === id);
+
+  const wrongAttempts = Math.max(0, attempts - vocabulary.length);
+  const scoreRaw = Math.max(0, vocabulary.length - wrongAttempts);
+  const scorePercent = Math.round((scoreRaw / vocabulary.length) * 100);
 
   return (
     <div className="game-container">
@@ -101,86 +97,71 @@ const MatchingGame: React.FC = () => {
       </header>
       
       <p className="instructions">
-        {submitted 
-          ? "Check your results below. You can retry the ones you missed or start over." 
+        {isGameOver 
+          ? "Great job! You have matched all the words." 
           : "Match each word with its correct definition. Click a word, then click its definition."}
       </p>
 
-      {submitted && score !== null && (
+      {isGameOver && (
         <div className="score-summary">
-          <h2>Score: {score} / {vocabulary.length}</h2>
+          <h2>Score: {scorePercent}%</h2>
+          <p>You found all {vocabulary.length} matches with {wrongAttempts} incorrect attempt{wrongAttempts !== 1 ? 's' : ''}.</p>
           <div className="actions">
-            {score < vocabulary.length && (
-              <button className="retry-button" onClick={handleRetryMissed}>Retry Missed</button>
-            )}
-            <button className="reset-button" onClick={handleStartOver}>Start Over</button>
+            <button className="reset-button" onClick={handleStartOver}>Play Again</button>
           </div>
         </div>
       )}
 
-      <div className="matching-grid">
-        <div className="column words-column">
-          <h3>Vocabulary</h3>
-          <div className="cards-list">
-            {shuffledWords.map(item => {
-              const match = getMatchForWord(item.id);
-              const isCorrect = submitted && match && match.wordId === match.definitionId;
-              const isIncorrect = submitted && match && match.wordId !== match.definitionId;
-              const isMatched = !!match;
+      {!isGameOver && (
+        <div className="matching-grid">
+          <div className="column words-column">
+            <h3>Vocabulary</h3>
+            <div className="cards-list">
+              {shuffledWords.map(item => {
+                const incorrectMatch = getIncorrectMatchForWord(item.id);
+                const isIncorrect = !!incorrectMatch;
 
-              return (
-                <div
-                  key={item.id}
-                  className={`card word-card 
-                    ${selectedWordId === item.id ? 'selected' : ''} 
-                    ${isMatched ? 'matched' : ''} 
-                    ${isCorrect ? 'correct' : ''} 
-                    ${isIncorrect ? 'incorrect' : ''}`}
-                  onClick={() => handleWordClick(item.id)}
-                >
-                  {item.word}
-                </div>
-              );
-            })}
+                return (
+                  <div
+                    key={item.id}
+                    className={`card word-card 
+                      ${selectedWordId === item.id ? 'selected' : ''} 
+                      ${isIncorrect ? 'incorrect' : ''}`}
+                    onClick={() => handleWordClick(item.id)}
+                  >
+                    {item.word}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="column definitions-column">
+            <h3>Definitions</h3>
+            <div className="cards-list">
+              {shuffledDefinitions.map(item => {
+                const incorrectMatch = getIncorrectMatchForDefinition(item.id);
+                const isIncorrect = !!incorrectMatch;
+
+                return (
+                  <div
+                    key={item.id}
+                    className={`card definition-card 
+                      ${selectedDefinitionId === item.id ? 'selected' : ''} 
+                      ${isIncorrect ? 'incorrect' : ''}`}
+                    onClick={() => handleDefinitionClick(item.id)}
+                  >
+                    {item.definition}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
+      )}
 
-        <div className="column definitions-column">
-          <h3>Definitions</h3>
-          <div className="cards-list">
-            {shuffledDefinitions.map(item => {
-              const match = getMatchForDefinition(item.id);
-              const isCorrect = submitted && match && match.wordId === match.definitionId;
-              const isIncorrect = submitted && match && match.wordId !== match.definitionId;
-              const isMatched = !!match;
-
-              return (
-                <div
-                  key={item.id}
-                  className={`card definition-card 
-                    ${selectedDefinitionId === item.id ? 'selected' : ''} 
-                    ${isMatched ? 'matched' : ''} 
-                    ${isCorrect ? 'correct' : ''} 
-                    ${isIncorrect ? 'incorrect' : ''}`}
-                  onClick={() => handleDefinitionClick(item.id)}
-                >
-                  {item.definition}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {!submitted && (
+      {!isGameOver && (
         <div className="game-actions">
-          <button 
-            className="submit-button" 
-            onClick={handleSubmit}
-            disabled={matches.length === 0}
-          >
-            Submit All Matches
-          </button>
           <button className="reset-button" onClick={handleStartOver}>Reset All</button>
         </div>
       )}
