@@ -21,6 +21,12 @@ function App() {
         >
           ELA
         </button>
+        <button 
+          className={subject === 'religion' ? 'active' : ''} 
+          onClick={() => setSubject('religion')}
+        >
+          Religion
+        </button>
       </div>
       <MatchingGame subject={subject} />
     </div>

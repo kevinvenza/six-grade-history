@@ -237,13 +237,18 @@ export const elaVocabulary: VocabularyItem[] = [
   },
   {
     id: "e11",
-    word: "Fact vs Opinion",
-    definition: "A fact is a statement that can be proven true with evidence, while an opinion is a personal belief or feeling. For example, 'Water boils at 212°F' is a fact."
+    word: "Fact",
+    definition: "A statement that can be proven true or false with evidence, data, or observation. For example, 'The Nile River is the longest river in the world'."
+  },
+  {
+    id: "e11b",
+    word: "Opinion",
+    definition: "A personal belief, feeling, or judgment that cannot be proven true or false. These often include value words like 'best', 'worst', or 'beautiful'."
   },
   {
     id: "e12",
     word: "Author's Purpose",
-    definition: "The reason an author writes a text, often categorized as to Persuade, Inform, Entertain, or Describe (PIED). Understanding this helps you evaluate the author's message."
+    definition: "The specific goal or reason why a writer created a text. Common goals include convincing the reader of an idea, sharing information, or providing enjoyment."
   },
   // Vocabulary
   {
@@ -300,6 +305,39 @@ export const elaVocabulary: VocabularyItem[] = [
   }
 ];
 
+export const religionVocabulary: VocabularyItem[] = [
+  {
+    id: "r1",
+    word: "Adoration",
+    definition: "A prayer of worship that recognizes God's greatness and majesty as the creator of all things. It is an expression of deep love and honor for who God is."
+  },
+  {
+    id: "r2",
+    word: "Petition",
+    definition: "A form of prayer where we ask God for things we personally need, such as help, healing, or strength. It shows our humble dependence on God for our daily well-being."
+  },
+  {
+    id: "r3",
+    word: "Intercession",
+    definition: "A prayer made on behalf of others, asking God to help or bless someone else in need. It is an act of love that follows the example of caring for our neighbors."
+  },
+  {
+    id: "r4",
+    word: "Thanksgiving",
+    definition: "A prayer expressing gratitude to God for the many blessings, gifts, and answered prayers in our lives. It acknowledges that every good thing we have comes from God's love."
+  },
+  {
+    id: "r5",
+    word: "Contrition",
+    definition: "A prayer expressing true sorrow for our sins and a sincere desire for God's forgiveness. It involves admitting our mistakes and asking for the grace to make better choices."
+  },
+  {
+    id: "r6",
+    word: "Blessing",
+    definition: "A prayer that invokes God's favor and protection upon a person, place, or object. It recognizes that God is the source of all holiness and asks Him to be present with us."
+  }
+];
+
 export const vocabularySets = {
   history: {
     title: "Ancient Egypt History",
@@ -310,6 +348,11 @@ export const vocabularySets = {
     title: "6th Grade ELA",
     subtitle: "Mastering Reading & Writing Concepts",
     items: elaVocabulary
+  },
+  religion: {
+    title: "6th Grade Religion",
+    subtitle: "Understanding Types of Prayer",
+    items: religionVocabulary
   }
 };
 
