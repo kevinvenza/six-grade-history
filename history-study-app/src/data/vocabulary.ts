@@ -187,7 +187,7 @@ export const elaVocabulary: VocabularyItem[] = [
   {
     id: "e1",
     word: "Theme",
-    definition: "The central message or universal truth that the author wants to convey through the story. For example, a theme could be 'honesty is the best policy' or 'courage overcomes fear'."
+    definition: "The central message or universal truth that the author wants to convey through the story. For example, this could be 'honesty is the best policy' or 'courage overcomes fear'."
   },
   {
     id: "e2",
@@ -258,8 +258,13 @@ export const elaVocabulary: VocabularyItem[] = [
   },
   {
     id: "e14",
-    word: "Prefixes/Suffixes",
-    definition: "Affixes added to the beginning (prefix) or end (suffix) of a root word to change its meaning. For example, 'un-' means not, and '-less' means without."
+    word: "Prefix",
+    definition: "A group of letters added to the beginning of a base word that changes its meaning, such as 're-' meaning again or 'pre-' meaning before."
+  },
+  {
+    id: "e14b",
+    word: "Suffix",
+    definition: "A group of letters added to the end of a base word that changes its meaning or its part of speech, such as '-ful' meaning full of or '-less' meaning without."
   },
   {
     id: "e15",
@@ -280,7 +285,7 @@ export const elaVocabulary: VocabularyItem[] = [
   {
     id: "e18",
     word: "Subject-Verb Agreement",
-    definition: "The rule that the subject and verb in a sentence must match in number. If the subject is singular, the verb must be singular (e.g., 'The cat sits')."
+    definition: "The grammatical requirement that the person or thing performing an action and the action word itself must both be either singular or plural."
   },
   {
     id: "e19",
