@@ -4,180 +4,313 @@ export interface VocabularyItem {
   definition: string;
 }
 
-export const vocabulary: VocabularyItem[] = [
+export const historyVocabulary: VocabularyItem[] = [
   {
-    id: "1",
+    id: "h1",
     word: "Hatshepsut",
     definition: "She was a female Pharaoh famous for expanding Egypt through trade and her massive funerary temple at Deir el-Bahari."
   },
   {
-    id: "2",
+    id: "h2",
     word: "Middle Kingdom",
     definition: "A period in ancient Egyptian history between roughly 2000 BC and 1700 BC, known for achievements in literature and art."
   },
   {
-    id: "3",
+    id: "h3",
     word: "Step Pyramid",
     definition: "The earliest form of pyramid, built by stacking smaller mastabas on top of each other, designed by Imhotep for King Djoser."
   },
   {
-    id: "4",
+    id: "h4",
     word: "Great Pyramid",
     definition: "The largest of the Giza pyramids, built as a tomb for Pharaoh Khufu."
   },
   {
-    id: "5",
+    id: "h5",
     word: "Valley of the Kings",
     definition: "A burial site in ancient Egypt containing the tombs of numerous pharaohs and powerful nobles from the New Kingdom."
   },
   {
-    id: "6",
+    id: "h6",
     word: "Pharaoh Khufu",
     definition: "The Pharaoh who commissioned the building of the Great Pyramid of Giza."
   },
   {
-    id: "7",
+    id: "h7",
     word: "Pharaoh Akhenaten",
     definition: "A Pharaoh of the New Kingdom who attempted to establish monotheism centered on the sun god Aten."
   },
   {
-    id: "8",
+    id: "h8",
     word: "Old Kingdom",
     definition: "Known as the 'Age of the Pyramids,' this period saw the construction of the most famous pyramids."
   },
   {
-    id: "9",
+    id: "h9",
     word: "Ramses II",
     definition: "Known as 'Ramses the Great,' he is famed for his massive 66-year reign, extensive construction projects, and military campaigns. He ordered the construction of more monuments, temples, and statues than any other pharaoh."
   },
   {
-    id: "10",
+    id: "h10",
     word: "Hieroglyphs",
     definition: "A formal writing system used by the ancient Egyptians that combined logographic and alphabetic elements."
   },
   {
-    id: "11",
+    id: "h11",
     word: "King Djoser",
     definition: "An ancient Egyptian pharaoh of the 3rd Dynasty who commissioned the construction of the Step Pyramid."
   },
   {
-    id: "12",
+    id: "h12",
     word: "Delta",
     definition: "A landform created by deposition of sediment at the mouth of a river, such as the fertile Nile Delta."
   },
   {
-    id: "13",
+    id: "h13",
     word: "Cataract",
     definition: "Shallow lengths or white water rapids of the Nile River, which served as natural barriers to navigation."
   },
   {
-    id: "14",
+    id: "h14",
     word: "Obelisk",
     definition: "A tall, four-sided, narrow tapering monument which ends in a pyramid-like shape at the top."
   },
   {
-    id: "15",
+    id: "h15",
     word: "Calendar",
     definition: "The ancient Egyptians developed a 365-day solar calendar to track the seasonal flooding of the Nile."
   },
   {
-    id: "16",
+    id: "h16",
     word: "Pharaoh",
     definition: "The title used by the supreme rulers of ancient Egypt."
   },
   {
-    id: "17",
+    id: "h17",
     word: "Artisans",
     definition: "Skilled workers who practiced a trade or handicraft, such as pottery, weaving, or jewelry making."
   },
   {
-    id: "18",
+    id: "h18",
     word: "Scribe",
     definition: "A person who served as a professional copyist, especially one who recorded information before the invention of printing."
   },
   {
-    id: "19",
+    id: "h19",
     word: "Afterlife",
     definition: "The ancient Egyptian belief in life after death, which involved complex rituals like mummification."
   },
   {
-    id: "20",
+    id: "h20",
     word: "Shaduf",
     definition: "A hand-operated device used for lifting water, consisting of a long pole balanced on a beam."
   },
   {
-    id: "21",
+    id: "h21",
     word: "Upper Nile",
     definition: "The southern part of the Nile River, which flows through a narrow valley."
   },
   {
-    id: "22",
+    id: "h22",
     word: "Lower Nile",
     definition: "The northern part of the Nile River, including the fertile Nile Delta region."
   },
   {
-    id: "23",
+    id: "h23",
     word: "Fertile",
     definition: "Soil that is rich in nutrients and capable of producing abundant vegetation or crops."
   },
   {
-    id: "24",
+    id: "h24",
     word: "Silt",
     definition: "Fine sand, clay, or other material carried by running water and deposited as sediment on a floodplain."
   },
   {
-    id: "25",
+    id: "h25",
     word: "Linen",
     definition: "A fabric made from the fibers of the flax plant, commonly used for clothing in ancient Egypt."
   },
   {
-    id: "26",
+    id: "h26",
     word: "Bartering",
     definition: "The exchange of goods or services for other goods or services without using money."
   },
   {
-    id: "27",
+    id: "h27",
     word: "Turquoise",
     definition: "A blue-to-green mineral that was highly valued in ancient Egypt for jewelry and amulets."
   },
   {
-    id: "28",
+    id: "h28",
     word: "Mummy",
     definition: "A dead body that has been preserved by embalming or by exposure to specific environmental conditions."
   },
   {
-    id: "29",
+    id: "h29",
     word: "Polytheism",
     definition: "The belief in or worship of more than one god."
   },
   {
-    id: "30",
+    id: "h30",
     word: "Monotheism",
     definition: "The belief in or worship of only one god."
   },
   {
-    id: "31",
+    id: "h31",
     word: "Papyrus",
     definition: "A material prepared in ancient Egypt from the pithy stem of a water plant, used for writing or painting."
   },
   {
-    id: "32",
+    id: "h32",
     word: "Hittites",
     definition: "An ancient people who established an empire in Asia Minor and were known for their military prowess and ironwork."
   },
   {
-    id: "33",
+    id: "h33",
     word: "Nubians",
     definition: "People from the region south of Egypt known for their wealth, gold, and skilled archers."
   },
   {
-    id: "34",
+    id: "h34",
     word: "Nefertiti",
     definition: "An Egyptian queen and wife of Akhenaten, known for her beauty and significant political influence."
   },
   {
-    id: "35",
+    id: "h35",
     word: "Cleopatra",
     definition: "The last active ruler of the Ptolemaic Kingdom of Egypt, known for her political alliances."
   }
 ];
+
+export const elaVocabulary: VocabularyItem[] = [
+  // Reading
+  {
+    id: "e1",
+    word: "Theme",
+    definition: "The central message or universal truth that the author wants to convey through the story. For example, a theme could be 'honesty is the best policy' or 'courage overcomes fear'."
+  },
+  {
+    id: "e2",
+    word: "Central Idea",
+    definition: "The most important point the author is making about a specific topic in a text. It summarizes what the passage is primarily about and is supported by key details."
+  },
+  {
+    id: "e3",
+    word: "Plot",
+    definition: "The sequence of events that make up a story, including the exposition, rising action, climax, falling action, and resolution. It describes the organized pattern or sequence of events."
+  },
+  {
+    id: "e4",
+    word: "Conflict",
+    definition: "The struggle between opposing forces in a story, which can be internal (character vs. self) or external (character vs. nature, or society). It is the main problem that drives the action."
+  },
+  {
+    id: "e5",
+    word: "Setting",
+    definition: "The time and place in which a story occurs. It helps establish the mood and provides necessary context for the characters' actions and the overall plot."
+  },
+  {
+    id: "e6",
+    word: "Point of View",
+    definition: "The perspective from which a story is told, such as first-person ('I', 'me') or third-person ('he', 'she', 'they'). It determines how much information the reader receives."
+  },
+  {
+    id: "e7",
+    word: "Inference",
+    definition: "A conclusion reached on the basis of evidence and reasoning rather than being explicitly stated. It involves 'reading between the lines' to understand what isn't said."
+  },
+  {
+    id: "e8",
+    word: "Evidence",
+    definition: "Specific details, facts, or quotations from a text used to support an argument or claim. Strong evidence is crucial for proving that an analysis or conclusion is correct."
+  },
+  // Informational Text
+  {
+    id: "e9",
+    word: "Main Idea",
+    definition: "The primary point or concept that the author wants the reader to understand about a specific topic. In non-fiction, it is the 'big picture' that all other details support."
+  },
+  {
+    id: "e10",
+    word: "Supporting Details",
+    definition: "Facts, examples, or descriptions that provide more information about the main idea. They act like the legs of a table, holding up the 'top' which is the main idea."
+  },
+  {
+    id: "e11",
+    word: "Fact vs Opinion",
+    definition: "A fact is a statement that can be proven true with evidence, while an opinion is a personal belief or feeling. For example, 'Water boils at 212°F' is a fact."
+  },
+  {
+    id: "e12",
+    word: "Author's Purpose",
+    definition: "The reason an author writes a text, often categorized as to Persuade, Inform, Entertain, or Describe (PIED). Understanding this helps you evaluate the author's message."
+  },
+  // Vocabulary
+  {
+    id: "e13",
+    word: "Context Clues",
+    definition: "Hints found within a sentence or paragraph that help a reader define an unfamiliar word. These can be synonyms, antonyms, or descriptions found near the word."
+  },
+  {
+    id: "e14",
+    word: "Prefixes/Suffixes",
+    definition: "Affixes added to the beginning (prefix) or end (suffix) of a root word to change its meaning. For example, 'un-' means not, and '-less' means without."
+  },
+  {
+    id: "e15",
+    word: "Roots",
+    definition: "The basic part of a word that carries the primary meaning and cannot be broken down further. Many English roots come from Greek or Latin, such as 'bio' meaning life."
+  },
+  {
+    id: "e16",
+    word: "Figurative Language",
+    definition: "Words or expressions used in a non-literal way to create a special effect or feeling. This includes metaphors, similes ('like' or 'as'), and personification."
+  },
+  // Grammar
+  {
+    id: "e17",
+    word: "Complete Sentences",
+    definition: "A group of words that expresses a full thought and contains both a subject and a predicate. It must start with a capital letter and end with punctuation."
+  },
+  {
+    id: "e18",
+    word: "Subject-Verb Agreement",
+    definition: "The rule that the subject and verb in a sentence must match in number. If the subject is singular, the verb must be singular (e.g., 'The cat sits')."
+  },
+  {
+    id: "e19",
+    word: "Punctuation",
+    definition: "The set of marks used to separate sentences and clarify meaning. Common marks include periods for statements, question marks, and commas to separate ideas."
+  },
+  // Writing
+  {
+    id: "e20",
+    word: "Transitions",
+    definition: "Words or phrases that connect ideas and paragraphs to create a smooth flow. Examples include 'however', 'therefore', 'first', and 'in addition'."
+  },
+  {
+    id: "e21",
+    word: "Organization",
+    definition: "The logical structure of a piece of writing, ensuring that ideas are presented clearly. Common structures include chronological order, cause and effect, or compare and contrast."
+  },
+  {
+    id: "e22",
+    word: "Avoiding Plagiarism",
+    definition: "The practice of using one's own words and properly citing sources to avoid stealing work. It is essential for maintaining academic honesty and giving credit to authors."
+  }
+];
+
+export const vocabularySets = {
+  history: {
+    title: "Ancient Egypt History",
+    subtitle: "Acing the 6th Grade History Final",
+    items: historyVocabulary
+  },
+  ela: {
+    title: "6th Grade ELA",
+    subtitle: "Mastering Reading & Writing Concepts",
+    items: elaVocabulary
+  }
+};
+
+export type Subject = keyof typeof vocabularySets;

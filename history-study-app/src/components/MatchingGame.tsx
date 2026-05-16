@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { vocabulary, type VocabularyItem } from '../data/vocabulary';
+import { vocabularySets, type VocabularyItem, type Subject } from '../data/vocabulary';
 import '../styles/MatchingGame.css';
 
 interface Match {
@@ -7,7 +7,12 @@ interface Match {
   definitionId: string;
 }
 
-const MatchingGame: React.FC = () => {
+interface MatchingGameProps {
+  subject: Subject;
+}
+
+const MatchingGame: React.FC<MatchingGameProps> = ({ subject }) => {
+  const currentSet = vocabularySets[subject];
   const [shuffledWords, setShuffledWords] = useState<VocabularyItem[]>([]);
   const [shuffledDefinitions, setShuffledDefinitions] = useState<VocabularyItem[]>([]);
   const [selectedWordId, setSelectedWordId] = useState<string | null>(null);
@@ -21,7 +26,7 @@ const MatchingGame: React.FC = () => {
   const [matchesFound, setMatchesFound] = useState(0);
 
   // Initialize and shuffle
-  const initGame = (items: VocabularyItem[] = vocabulary) => {
+  const initGame = (items: VocabularyItem[] = currentSet.items) => {
     setShuffledWords([...items].sort(() => Math.random() - 0.5));
     setShuffledDefinitions([...items].sort(() => Math.random() - 0.5));
     setIncorrectMatches([]);
@@ -31,9 +36,10 @@ const MatchingGame: React.FC = () => {
     setMatchesFound(0);
   };
 
+  // Re-init when subject changes
   useEffect(() => {
     initGame();
-  }, []);
+  }, [subject]);
 
   // Handle selection
   const handleWordClick = (id: string) => {
@@ -80,20 +86,21 @@ const MatchingGame: React.FC = () => {
     initGame();
   };
 
-  const isGameOver = vocabulary.length > 0 && matchesFound === vocabulary.length;
+  const totalItems = currentSet.items.length;
+  const isGameOver = totalItems > 0 && matchesFound === totalItems;
   
   const getIncorrectMatchForWord = (id: string) => incorrectMatches.find(m => m.wordId === id);
   const getIncorrectMatchForDefinition = (id: string) => incorrectMatches.find(m => m.definitionId === id);
 
-  const wrongAttempts = Math.max(0, attempts - vocabulary.length);
-  const scoreRaw = Math.max(0, vocabulary.length - wrongAttempts);
-  const scorePercent = Math.round((scoreRaw / vocabulary.length) * 100);
+  const wrongAttempts = Math.max(0, attempts - totalItems);
+  const scoreRaw = Math.max(0, totalItems - wrongAttempts);
+  const scorePercent = Math.round((scoreRaw / totalItems) * 100);
 
   return (
     <div className="game-container">
       <header>
-        <h1>Ancient Egypt Study Match</h1>
-        <p className="subtitle">Help your daughter ace her 6th Grade History Final!</p>
+        <h1>{currentSet.title}</h1>
+        <p className="subtitle">{currentSet.subtitle}</p>
       </header>
       
       <p className="instructions">
@@ -105,7 +112,7 @@ const MatchingGame: React.FC = () => {
       {isGameOver && (
         <div className="score-summary">
           <h2>Score: {scorePercent}%</h2>
-          <p>You found all {vocabulary.length} matches with {wrongAttempts} incorrect attempt{wrongAttempts !== 1 ? 's' : ''}.</p>
+          <p>You found all {totalItems} matches with {wrongAttempts} incorrect attempt{wrongAttempts !== 1 ? 's' : ''}.</p>
           <div className="actions">
             <button className="reset-button" onClick={handleStartOver}>Play Again</button>
           </div>
