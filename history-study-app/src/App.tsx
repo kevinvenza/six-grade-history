@@ -27,6 +27,12 @@ function App() {
         >
           Religion
         </button>
+        <button 
+          className={subject === 'spanish' ? 'active' : ''} 
+          onClick={() => setSubject('spanish')}
+        >
+          Spanish
+        </button>
       </div>
       <MatchingGame subject={subject} />
     </div>

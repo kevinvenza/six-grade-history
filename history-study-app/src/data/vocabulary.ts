@@ -343,6 +343,47 @@ export const religionVocabulary: VocabularyItem[] = [
   }
 ];
 
+export const spanishVocabulary: VocabularyItem[] = [
+  // Important Vocabulary
+  { id: "s1", word: "dice", definition: "says" },
+  { id: "s2", word: "hacia", definition: "toward" },
+  { id: "s3", word: "nunca", definition: "never" },
+  { id: "s4", word: "abre", definition: "opens" },
+  { id: "s5", word: "tiene miedo de", definition: "is afraid of" },
+  { id: "s6", word: "simpático", definition: "friendly" },
+  { id: "s7", word: "quiere ser", definition: "wants to be" },
+  { id: "s8", word: "se llama", definition: "is called" },
+  { id: "s9", word: "hay", definition: "there is/there are" },
+  { id: "s10", word: "se sienta", definition: "sits down" },
+  // People & Places
+  { id: "s11", word: "hermano", definition: "brother" },
+  { id: "s12", word: "chica", definition: "girl" },
+  { id: "s13", word: "universidad", definition: "university" },
+  { id: "s14", word: "novio", definition: "boyfriend" },
+  // Actions
+  { id: "s15", word: "corre", definition: "runs" },
+  { id: "s16", word: "camina", definition: "walks" },
+  { id: "s17", word: "bailar", definition: "to dance" },
+  { id: "s18", word: "estudiar", definition: "to study" },
+  { id: "s19", word: "ayuda", definition: "helps" },
+  { id: "s20", word: "mira", definition: "looks" },
+  { id: "s21", word: "grita", definition: "shouts" },
+  // Feelings
+  { id: "s22", word: "enojado", definition: "angry" },
+  { id: "s23", word: "triste", definition: "sad" },
+  // Grammar Review - Irregular Verbs
+  { id: "s24", word: "SER", definition: "to be (soy, eres, es, somos, son)" },
+  { id: "s25", word: "ESTAR", definition: "to be (estoy, estás, está, estamos, están)" },
+  { id: "s26", word: "IR", definition: "to go (voy, vas, va, vamos, van)" },
+  { id: "s27", word: "TENER", definition: "to have (tengo, tienes, tiene, tenemos, tienen)" },
+  { id: "s28", word: "PODER", definition: "can/to be able to (puedo, puedes, puede, podemos, pueden)" },
+  { id: "s29", word: "QUERER", definition: "to want (quiero, quieres, quiere, queremos, quieren)" },
+  // Helpful Phrases
+  { id: "s30", word: "va a", definition: "going to" },
+  { id: "s31", word: "tiene que", definition: "has to" },
+  { id: "s32", word: "no puede", definition: "cannot" }
+];
+
 export const vocabularySets = {
   history: {
     title: "Ancient Egypt History",
@@ -358,6 +399,11 @@ export const vocabularySets = {
     title: "6th Grade Religion",
     subtitle: "Understanding Types of Prayer",
     items: religionVocabulary
+  },
+  spanish: {
+    title: "Spanish 1",
+    subtitle: "Final Exam Study Guide - Somos 1",
+    items: spanishVocabulary
   }
 };
 
