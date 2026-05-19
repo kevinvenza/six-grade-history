@@ -3,8 +3,6 @@ import { mathTopics } from '../data/mathData';
 import type { MathQuestion } from '../data/mathData';
 import '../styles/MathQuiz.css';
 
-const QUESTIONS_PER_TOPIC = 2;
-
 export default function MathQuiz() {
   const [stage, setStage] = useState<'intro' | 'tutorial' | 'quiz' | 'summary'>('intro');
   const [topicIndex, setTopicIndex] = useState(0);
@@ -13,17 +11,22 @@ export default function MathQuiz() {
   
   const [scores, setScores] = useState<Record<string, { correct: number, total: number }>>({});
   
+  const [selectedTopics, setSelectedTopics] = useState<Set<string>>(new Set(mathTopics.map(t => t.id)));
+  const [questionsPerTopic, setQuestionsPerTopic] = useState(2);
+  
+  const activeTopics = mathTopics.filter(t => selectedTopics.has(t.id));
+
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
 
   // Generate a new question when entering a quiz stage or next question
   useEffect(() => {
-    if (stage === 'quiz') {
-      setCurrentQuestion(mathTopics[topicIndex].generateQuestion());
+    if (stage === 'quiz' && activeTopics[topicIndex]) {
+      setCurrentQuestion(activeTopics[topicIndex].generateQuestion());
       setSelectedOption(null);
       setShowFeedback(false);
     }
-  }, [stage, topicIndex, questionIndex]);
+  }, [stage, topicIndex, questionIndex, activeTopics]);
 
   const handleStart = () => {
     setScores({});
@@ -42,7 +45,7 @@ export default function MathQuiz() {
     setShowFeedback(true);
     
     const isCorrect = option === currentQuestion?.correctAnswer;
-    const topicId = mathTopics[topicIndex].id;
+    const topicId = activeTopics[topicIndex].id;
     
     setScores(prev => {
       const topicScore = prev[topicId] || { correct: 0, total: 0 };
@@ -57,11 +60,11 @@ export default function MathQuiz() {
   };
 
   const handleNext = () => {
-    if (questionIndex + 1 < QUESTIONS_PER_TOPIC) {
+    if (questionIndex + 1 < questionsPerTopic) {
       setQuestionIndex(prev => prev + 1);
     } else {
       // Move to next topic or summary
-      if (topicIndex + 1 < mathTopics.length) {
+      if (topicIndex + 1 < activeTopics.length) {
         setTopicIndex(prev => prev + 1);
         setQuestionIndex(0);
         setStage('tutorial');
@@ -72,20 +75,76 @@ export default function MathQuiz() {
   };
 
   if (stage === 'intro') {
+    const toggleTopic = (id: string) => {
+      setSelectedTopics(prev => {
+        const newSet = new Set(prev);
+        if (newSet.has(id)) newSet.delete(id);
+        else newSet.add(id);
+        return newSet;
+      });
+    };
+    
+    const selectAll = () => setSelectedTopics(new Set(mathTopics.map(t => t.id)));
+    const clearAll = () => setSelectedTopics(new Set());
+
     return (
       <div className="math-container">
         <div className="intro-card">
           <h2>6th Grade Math Challenge</h2>
-          <p>This exam covers multiple math topics. For each topic, you will get a quick review and then answer {QUESTIONS_PER_TOPIC} questions.</p>
-          <p>Number of topics: {mathTopics.length}</p>
-          <button className="start-btn" onClick={handleStart}>Start Exam</button>
+          <p>Customize your practice session!</p>
+          
+          <div className="quiz-settings">
+            <label>
+              Questions per topic:
+              <select 
+                value={questionsPerTopic} 
+                onChange={(e) => setQuestionsPerTopic(Number(e.target.value))}
+                className="questions-select"
+              >
+                {[1, 2, 3, 5, 10].map(n => <option key={n} value={n}>{n}</option>)}
+              </select>
+            </label>
+          </div>
+
+          <div className="topic-selection">
+            <div className="topic-selection-header">
+              <h3>Select Topics ({selectedTopics.size} chosen)</h3>
+              <div className="selection-actions">
+                <button type="button" onClick={selectAll}>Select All</button>
+                <button type="button" onClick={clearAll}>Clear All</button>
+              </div>
+            </div>
+            
+            <div className="topic-list">
+              {mathTopics.map(t => (
+                <label key={t.id} className="topic-checkbox-label">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedTopics.has(t.id)}
+                    onChange={() => toggleTopic(t.id)}
+                  />
+                  <span className="topic-chapter">Ch {t.chapter}</span>
+                  {t.title}
+                </label>
+              ))}
+            </div>
+          </div>
+          
+          <button 
+            className="start-btn" 
+            onClick={handleStart}
+            disabled={selectedTopics.size === 0}
+          >
+            Start Practice
+          </button>
         </div>
       </div>
     );
   }
 
   if (stage === 'tutorial') {
-    const topic = mathTopics[topicIndex];
+    const topic = activeTopics[topicIndex];
+    if (!topic) return null;
     return (
       <div className="math-container">
         <div className="tutorial-card">
@@ -124,7 +183,7 @@ export default function MathQuiz() {
           <div className="topic-breakdown">
             <h3>Topic Breakdown</h3>
             <div className="breakdown-grid">
-              {mathTopics.map(topic => {
+              {activeTopics.map(topic => {
                 const s = scores[topic.id] || { correct: 0, total: 0 };
                 const needsWork = s.total > 0 && (s.correct / s.total) < 0.6;
                 return (
@@ -138,19 +197,20 @@ export default function MathQuiz() {
             </div>
           </div>
           
-          <button className="start-btn" onClick={handleStart}>Retake Exam (New Questions)</button>
+          <button className="start-btn" onClick={() => setStage('intro')}>Back to Setup</button>
         </div>
       </div>
     );
   }
 
   // Quiz stage
-  const topic = mathTopics[topicIndex];
+  const topic = activeTopics[topicIndex];
+  if (!topic) return null;
   return (
     <div className="math-container">
       <div className="quiz-header">
-        <span className="progress">Topic {topicIndex + 1} of {mathTopics.length}</span>
-        <span className="progress">Question {questionIndex + 1} of {QUESTIONS_PER_TOPIC}</span>
+        <span className="progress">Topic {topicIndex + 1} of {activeTopics.length}</span>
+        <span className="progress">Question {questionIndex + 1} of {questionsPerTopic}</span>
       </div>
       
       <div className="quiz-card">
@@ -184,7 +244,7 @@ export default function MathQuiz() {
             <h4>{selectedOption === currentQuestion?.correctAnswer ? 'Great Job!' : 'Not Quite!'}</h4>
             <p>{currentQuestion?.explanation}</p>
             <button className="next-btn" onClick={handleNext}>
-              {questionIndex + 1 < QUESTIONS_PER_TOPIC ? 'Next Question' : 'Next Topic'}
+              {questionIndex + 1 < questionsPerTopic ? 'Next Question' : 'Next Topic'}
             </button>
           </div>
         )}
