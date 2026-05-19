@@ -178,12 +178,13 @@ export const mathTopics: MathTopic[] = [
     title: 'Addition and Subtraction Expressions with Fractions',
     tutorial: 'To add or subtract fractions, they must have a common denominator.',
     generateQuestion: () => {
-      const n1 = Math.floor(Math.random() * 3) + 1;
-      const d1 = 4;
-      const n2 = Math.floor(Math.random() * 2) + 1;
-      const d2 = 2; // will be 2/4 or 4/4 equivalent
       const op = Math.random() > 0.5 ? '+' : '-';
-      let correctN = op === '+' ? n1 * 1 + n2 * 2 : Math.abs(n1 * 1 - n2 * 2);
+      const d1 = 4;
+      const d2 = 2;
+      let n2 = Math.floor(Math.random() * 2) + 1;
+      let n1 = op === '-' ? n2 * 2 + Math.floor(Math.random() * 2) : Math.floor(Math.random() * 3) + 1;
+      
+      let correctN = op === '+' ? n1 * 1 + n2 * 2 : n1 * 1 - n2 * 2;
       let correctAnswer = simplifyFraction(correctN, 4);
       if (correctAnswer === '0/1' || correctAnswer === '0/4') correctAnswer = '0';
       return {
@@ -205,11 +206,12 @@ export const mathTopics: MathTopic[] = [
     title: 'Addition and Subtraction Equations with Fractions',
     tutorial: 'To solve equations with fractions, isolate the variable by adding or subtracting the fraction from both sides.',
     generateQuestion: () => {
-      const a = 1;
-      const b = Math.floor(Math.random() * 3) + 1;
       const d = 5;
       const op = Math.random() > 0.5 ? '+' : '-';
-      const ansN = op === '+' ? b + a : Math.abs(b - a);
+      const a = Math.floor(Math.random() * 2) + 1; // 1 or 2
+      // Ensure b is strictly greater than a for addition, to avoid negative or zero answers
+      const b = op === '+' ? a + Math.floor(Math.random() * 3) + 1 : Math.floor(Math.random() * 3) + 1;
+      const ansN = op === '+' ? b - a : b + a;
       const correctAnswer = simplifyFraction(ansN, d);
       return {
         question: `Solve for x: x ${op} ${a}/${d} = ${b}/${d}`,
@@ -217,7 +219,7 @@ export const mathTopics: MathTopic[] = [
           correctAnswer,
           simplifyFraction(ansN + 1, d),
           simplifyFraction(ansN + 2, d),
-          simplifyFraction(Math.abs(ansN - 1), d)
+          simplifyFraction(Math.abs(ansN - 1) || ansN + 3, d)
         ]),
         correctAnswer,
         explanation: `Isolate x by doing the inverse operation: ${op === '+' ? '-' : '+'} ${a}/${d} on both sides.`
