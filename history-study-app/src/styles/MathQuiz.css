@@ -1,0 +1,235 @@
+.math-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.intro-card, .tutorial-card, .quiz-card, .summary-card {
+  background: white;
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.chapter-badge {
+  display: inline-block;
+  background: #6366f1;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.intro-card h2, .tutorial-card h2, .quiz-card h3, .summary-card h2 {
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.tutorial-content {
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: left;
+  border-left: 4px solid #6366f1;
+}
+
+.tutorial-content h3 {
+  color: #475569;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.tutorial-content p {
+  color: #334155;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.start-btn, .next-btn {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+}
+
+.start-btn:hover, .next-btn:hover {
+  background: #4338ca;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(79, 70, 229, 0.3);
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.question-text {
+  font-size: 1.3rem;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.option-btn {
+  background: #f1f5f9;
+  border: 2px solid #e2e8f0;
+  padding: 1.25rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #334155;
+  font-weight: 500;
+}
+
+.option-btn:hover:not(:disabled) {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.option-btn.correct {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #166534;
+}
+
+.option-btn.incorrect {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.option-btn.disabled:not(.correct):not(.incorrect) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feedback-box {
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+  text-align: left;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.correct-feedback {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+.correct-feedback h4 { color: #15803d; }
+
+.incorrect-feedback {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+.incorrect-feedback h4 { color: #b91c1c; }
+
+.feedback-box h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.feedback-box p {
+  color: #334155;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Summary Styles */
+.final-score {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #4f46e5;
+  margin-bottom: 3rem;
+}
+
+.topic-breakdown {
+  text-align: left;
+  margin-bottom: 3rem;
+}
+
+.topic-breakdown h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.breakdown-row {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.breakdown-row:last-child {
+  border-bottom: none;
+}
+
+.topic-name {
+  flex: 1;
+  font-weight: 500;
+  color: #334155;
+}
+
+.topic-score {
+  font-weight: 600;
+  color: #475569;
+  margin: 0 1rem;
+  width: 60px;
+  text-align: right;
+}
+
+.warning-icon {
+  color: #eab308;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: #fef9c3;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  margin-left: 1rem;
+}
+
+.breakdown-row.needs-work .topic-score {
+  color: #ef4444;
+}
+
+@media (max-width: 640px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}
