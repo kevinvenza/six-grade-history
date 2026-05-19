@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { mathTopics } from '../data/mathData';
 import type { MathQuestion } from '../data/mathData';
 import '../styles/MathQuiz.css';
@@ -14,7 +14,7 @@ export default function MathQuiz() {
   const [selectedTopics, setSelectedTopics] = useState<Set<string>>(new Set(mathTopics.map(t => t.id)));
   const [questionsPerTopic, setQuestionsPerTopic] = useState(2);
   
-  const activeTopics = mathTopics.filter(t => selectedTopics.has(t.id));
+  const activeTopics = useMemo(() => mathTopics.filter(t => selectedTopics.has(t.id)), [selectedTopics]);
 
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
